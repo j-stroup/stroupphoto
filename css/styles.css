@@ -1,579 +1,572 @@
-CSS/* CSS Document */
-/* BODY, NAVIGATION */
+/* MODERN MOODY PHOTOGRAPHY THEME 
+  Focus: Minimalism, Deep Tones, and Fluid Mobile Design
+*/
 
-* { margin:0; padding:0; }
+:root {
+  --bg-color: #0a0a0a;         /* Deep obsidian */
+  --card-bg: #141414;          /* Subtle elevation */
+  --accent: #F39C12;           /* Your signature orange */
+  --text-main: #e0e0e0;        /* Off-white for less eye strain */
+  --text-muted: #888;          /* Low-priority text */
+  --nav-height: 70px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-body {
-  background-color: white;
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html, body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
   height: 100%;
-  //text-align: center;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-
-#header {
-  opacity: 70;
-  position: top;
-  width: relative;
-  height: 30px;
+main {
+    padding-top: 100px; 
 }
 
+/* Header Layout Adjustments */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* BRAND STYLING - Fixing the Color & Underline */
+.brand a, 
+.brand a:visited, 
+.brand a:link {
+    color: #ffffff !important; /* Force white color */
+    text-decoration: none !important; /* Remove the underline */
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.brand a:hover {
+    color: var(--accent) !important;
+}
+/* Home Page Description Style */
+.home-hero {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.home-hero h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+}
+
+.description {
+    max-width: 600px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+/* Mobile Tweak */
+@media (max-width: 768px) {
+    .header-container {
+        width: 95%;
+    }
+    .navBar {
+        gap: 1rem; /* Tighter gap for mobile */
+    }
+    .brand a {
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+    }
+    
+    .home-hero h2 {
+        font-size: 2rem;
+    }
+}
+
+/* NAVIGATION */
 #navBar {
-  position:fixed;
-  display:block;
-  background-color: white;
-  color: white;
-  width: 100%;
-  height: 45px;
-  top:0;
-  z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; 
+    background-color: #0a0a0a; /* solid for now to test */
+    display: flex;
+    align-items: center; /* Vertical center */
+    z-index: 1000;
+    border-bottom: 1px solid #1a1a1a;
 }
 
-#footer {
-  position:fixed;
-  background-color: #2D2D2D;
-  width: 100%;
-  height: 50px;
-  margin-top: -35px;
-  bottom:0;
+.navBar {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
 }
 
-#display {
-  position: absolute;
-  width: auto;
-  overflow: hidden;
-  z-index: -1;
+.navBar a, 
+.navBar a:visited {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: var(--transition);
 }
 
-h1 {
-  font-size: 1.875em;
-  margin: 0.67em 0;
+.navBar a:hover {
+    color: var(--accent);
+}
+
+/* MAIN CONTENT CONTAINER */
+/* Replaces the rigid #body and #blog positioning */
+main, #body, #blog {
+  padding-top: calc(var(--nav-height) + 40px);
+  padding-bottom: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+/* IMAGES & GALLERY */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+#body img, #blog img {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-bottom: 2rem;
+}
+
+/* TYPOGRAPHY */
+h1, h2, h3 {
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  margin-bottom: 1rem;
 }
 
 h2 {
-  font-size: 1.5em;
-  margin: 0.67em 0;
-  color: rgba(255, 255, 255);
-  font-size: 30px;
-  text-decoration: none; display: block;
+  font-size: clamp(1.5rem, 5vw, 2.5rem); /* Fluid typography */
+  color: #fff;
 }
 
-h3 {
-  font-size: 18px;
-  margin:10px 15px 4px 15px;
-  color: white;
-  text-decoration: none; display: block;
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+    margin-top: 40px;
 }
 
-a:link {
-  color: rgba(255, 255, 255);
-  text-decoration: none;
+.about-image {
+    width: 100%;
+    border: 1px solid #222;
+    filter: grayscale(30%);
 }
 
-a:visited {
-  color: black;
-  text-decoration: none;
+.about-text p {
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.8;
 }
 
-a:hover {
-  text-decoration: underline;
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.navBar a:link{
-  color: black;
-  font-size: 18px;
-  text-decoration: none; display: block;
-  z-index: 1;
+.home-hero-fullscreen {
+    position: relative;
+    height: 100vh; /* Full screen height */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%); /* Breaks out of container to go edge-to-edge */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: -100px; /* Pulls it up under the transparent header */
 }
 
-.navBar a:visited{
-  color:black;
-  text-decoration: none;
-}
-.navBar a:hover{
-  color: #F39C12;
-}
-.navBar{
-  background-color: white;
-  list-style-type: none;
-  text-align: center;
-  z-index: 0;
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4) grayscale(20%); /* Ensures the white text pops */
+    z-index: 1;
 }
 
-.navBar li,.navBar .columns{
-  color:white;
-  list-style-type: none;
-  overflow:hidden;
-  float:left;
-  color:#000;
-  margin:0 12px 0 12px;
-  line-height:30px;
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column; /* Stacks the H1, P, and A vertically */
+    align-items: center;    /* This is the magic line that centers all children */
+    justify-content: center;
+    text-align: center;     /* Centers the text lines within the elements */
+    padding: 20px;
+    max-width: 800px;       /* Keeps the paragraph from getting too wide */
+    margin: 0 auto;
 }
 
-#body {
-  position: fixed;
-  width: 55%;
-  margin: 0;
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  scroll-behavior: auto;
+.hero-content h1 {
+    font-size: clamp(2rem, 8vw, 5rem);
+    letter-spacing: 15px;
+    margin-bottom: 20px;
 }
 
-#body img{
-  width: 100%;
-  height: 100%;
-  top: 50%;
-  left: 50%;
-  object-fit: contain;
+.cta-button {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 15px 40px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
-#blog {
+.cta-button:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* Custom CSS Arrows (Removing the old borders for cleaner lines) */
+#next div, #prev div {
+  border: solid var(--text-main);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 6px;
+  opacity: 1 !important; /* Overriding old opacity:0 */
+}
+
+#next div { transform: rotate(-45deg); margin-right: 4px; }
+#prev div { transform: rotate(135deg); margin-left: 4px; }
+
+#next:hover, #prev:hover {
+  background: var(--accent);
+  transform: scale(1.1);
+}
+
+/* --- THE DOTS (Indicators) --- */
+#dots {
   position: absolute;
-  width: 50%;
-  left: 25%;
-  height: 100%;
-  padding-top: 70px;
-  padding-bottom: 350px;
-  z-index: -1;
-}
-
-#blog img{
-  width: 100%;
-  height: 80%;
-  max-height: 600px;
-  object-fit: contain;
-}
-
-#icons {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  justify-content: center;
+  gap: 12px;
+  list-style: none;
+  z-index: 20;
+  pointer-events: auto;
 }
 
-#icons img{
-  display: inline-block;
-  width: 30px;
-  height: 40px;
-  margin: 0 20px 0 20px;
-}
-
-/* Slideshow */
-
-#slideshow {
-  height: 80%;
-  width: 100%;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1
-}
-
-#slideshow #slidewindow {
-  position: relative;
-  overflow: hidden;
-}
-
-#slideshow #slidewindow div {
-  position: absolute;
-  width: 100%;
-  height: 50  0px;
-  transition: transform .5s ease;
-}
-
-#slideshow #slidewindow div img {
-  display: block;
-  height: 500px;
-  width: auto;
-  object-fit: contain;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Controls */
-
-#slideshow #controls {
-  text-align: center;
-  transition: all 200ms ease-in-out;
-  top: 50%;
-  bottom: 0;
-  z-index: 0;
-}
-
-#slideshow #controls #next, #slideshow #controls #prev {
-  position: relative;
-  width: 48px;
-  height: 48px;
-  margin: 10px;
-  top: 50%;
-  cursor: pointer;
-  z-index: 0;
-}
-
-#slideshow #controls #next {
-  float: right;
-}
-
-#slideshow #controls #prev {
-  float: left;
-}
-
-#slideshow #controls #next div, #slideshow #controls #prev div {
-  position: absolute;
-  pointer-events: none;
-  border-style: solid;
-  border-color: #2D2D2D;
-  border-width: 2px 2px 0 0;
-  content: '';
-  display: inline-block;
-  left: 20px;
-  top: 20px;
-  transform: rotate(45deg);
-  vertical-align: top;
-  width: 12px;
-  height: 12px;
-}
-
-#slideshow #controls #prev div {
-  transform: rotate(-135deg);
-}
-
-#slideshow #controls #dots {
-  margin: auto;
-  display: inline-block;
-  padding: 0;
-  list-style-type: none;
-  width: auto;
-}
-
-#slideshow #controls #dots li {
-  display: inline-block;
-  border: 1px solid #2D2D2D;
+#dots li {
   width: 8px;
   height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none; /* Cleaner look */
   border-radius: 50%;
   cursor: pointer;
-  margin: 26px 4px;
+  transition: var(--transition);
 }
 
-#slideshow #controls #dots .active {
-  background: #F39C12;
+#dots li.active {
+  background: var(--accent);
+  transform: scale(1.3);
 }
 
-#slideshow #controls #dots li:hover,
-#slideshow #controls #next:hover,
-#slideshow #controls #prev:hover {
-  transform: scale(1.125);
-}
-
-#slideshow #controls #dots li:active,
-#slideshow #controls #next:active,
-#slideshow #controls #prev:active {
-  transform: scale(1);
-}
-
-
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 700px) {
-
-
-#header {
-  opacity: 70;
-  position: top;
-  width: relative;
-  height: 30px;
-}
-
-#navBar {
-  position:fixed;
-  color: white;
-  width: 100%;
-  height: 45px;
-  left: 0;
-  top:0;
-}
-
+/* --- FOOTER & SOCIALS --- */
 #footer {
-  background-color: #2D2D2D;
-  width: 100%;
-  height: 61px;
-  bottom:0;
-}
-
-#footer td {
-  width: 180px;
-  height: 52px;
-}
-
-#display {
-  position: absolute;
-  width: auto;
-  overflow: hidden;
-  z-index: -1;
-}
-
-#body {
-  position: fixed;
-  width: 100%;
-  margin: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  object-fit: contain;
-}
-
-#body img{
-  width: 100%;
-  height: 80%;
-  max-height: 600px;
-  object-fit: contain;
-}
-
-#blog {
-  position: fixed;
-  width: 50%;
-  margin: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-}
-
-#blog img{
-  width: 100%;
-  height: 80%;
-  max-height: 600px;
-  object-fit: contain;
+    background-color: var(--card-bg);
+    padding: 60px 0;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
 }
 
 #icons {
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Wider spacing for better mobile tap targets */
+    margin-bottom: 20px;
 }
 
-#icons img{
-  display: inline-block;
-  width: 40px;
-  height: 50px;
-  justify-content: center;
-  margin: 10px 30px 0 30px;
+#icons img {
+    width: 24px;
+    height: 24px;
+    transition: var(--transition);
+    /* Filter makes standard black icons look white/grey */
+    filter: invert(1) opacity(0.5); 
 }
 
-h1 {
-  font-size: 1.875em;
-  margin: 0.67em 0;
+#icons a:hover img {
+    filter: invert(1) opacity(1);
+    transform: translateY(-3px);
 }
 
-h2 {
-  font-size: 1.5em;
-  margin: 0.67em 0;
-  color: rgba(255, 255, 255);
-  font-size: 30px;
-  text-decoration: none; display: block;
+.copyright {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-h3 {
-  font-size: 16px;
-  color: white;
-  text-decoration: none; display: block;
+/* Add this to your style.css */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
 }
 
-p {
-  margin-left: 3%;
-  margin-right: 3%;
+.gallery-item {
+    overflow: hidden;
+    background: #111;
+    aspect-ratio: 1 / 1; /* Keeps the grid uniform */
 }
 
-a:link {
-  color: rgba(255, 255, 255);
-  text-decoration: none;
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: grayscale(20%) brightness(0.9); /* Moody baseline */
 }
 
-a:visited {
-  color: black;
-  text-decoration: none;
+.gallery-item img:hover {
+    transform: scale(1.05);
+    filter: grayscale(0%) brightness(1.1);
 }
 
-a:hover {
-  text-decoration: underline;
+/* --- LIGHTBOX STYLES --- */
+.photo-meta {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    font-family: 'Courier New', Courier, monospace; /* Monospace for that dev look */
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
 }
 
-.navBar a:link{
-  color: black;
-  font-size: 25px;
-  text-decoration: none; display: block;
-  z-index: 1;
+/* The background overlay */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* Deep dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(8px); /* Adds a heavy blur to the gallery behind the photo */
+    z-index: 2000;
 }
 
-.navBar a:visited{
-  color:black;
-  text-decoration: none;
+/* When the ID is clicked/targeted, show the lightbox */
+.lightbox:target {
+    opacity: 1;
+    visibility: visible;
 }
 
-.navBar a:hover{
-  color: #F39C12;
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
 }
 
-.navBar{
-  width: 100%;
-  padding: 0;
-  margin-left: 9px;
-  justify-content: center;
-  text-align: center;
+.lightbox-content img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 90vh; /* Ensures it fits on mobile screens */
+    object-fit: contain; /* Prevents cropping */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+    border: 1px solid #222;
 }
 
-.navBar li, .navBar .columns{
-  color: white;
-  color:#000;
-  margin:0 8px 0 5px;
-  line-height:45px;
+/* Invisible area around the image to click and exit */
+.lightbox-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
 }
 
-.button {
-  display: block;
-  background-color: #F39C12;
-  margin: auto;
-  text-align: center;
-  width: 80%;
-  padding: 20px 0;
-  border: 2px solid black;
-  border-radius: 10px;
+/* Visible 'X' button */
+.close-button {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    font-weight: 200;
+    transition: var(--transition);
 }
 
-.button a {
-  font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
+.close-button:hover {
+    color: var(--accent);
 }
 
-.profile {
-  display: block;
-  border-radius: 50%;
-  margin-left: 34%;
-  margin-top: 5%;
-  border: 2px solid black;
-  width: 100px;
-  height: 100px;
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr; /* Single column on phones */
+        gap: 10px;
+    }
 }
 
-/* Slideshow */
+/* --- MOBILE OVERRIDES --- */
+@media (max-width: 700px) {
+  #slideshow {
+    aspect-ratio: 1 / 1; /* Squares look better on phone screens */
+    margin: 1rem 0;
+  }
 
-#slideshow {
-  width: 100%;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1
+  #slideshow #controls #next, 
+  #slideshow #controls #prev {
+    width: 45px;
+    height: 45px;
+    background: rgba(10, 10, 10, 0.6); /* Higher contrast for outdoor viewing */
+  }
+
+  #dots {
+    bottom: 10px;
+  }
 }
 
-#slideshow #slidewindow {
-  position: relative;
-  overflow: hidden;
+/* MOBILE OPTIMIZATIONS (1000px and down) */
+@media (max-width: 768px) {
+  .navBar {
+    gap: 1rem;
+  }
+  
+  .navBar a {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  main, #body, #blog {
+    width: 95%;
+    padding-top: calc(var(--nav-height) + 20px);
+  }
+
+  /* Stack the slideshow controls or dots for better thumb reach */
+  #controls {
+    top: auto;
+    bottom: 20px;
+    transform: none;
+  }
+}
+/* BOOKS PAGE STYLING */
+.books-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 0;
 }
 
-#slideshow #slidewindow div {
-  position: absolute;
-  width: 100%;
-  height: 35  0px;
-  transition: transform .5s ease;
+.section-title {
+    text-align: center;
+    letter-spacing: 5px;
+    margin-bottom: 60px;
+    color: var(--text-main);
 }
 
-#slideshow #slidewindow img {
-  display: inline-block;
-  max-width: 100%;
-  max-height: 450px;
-  object-fit: contain;
-  margin-top: auto;
-  margin-bottom: auto;
+.book-entry {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 100px;
+    align-items: center;
 }
 
-/* Controls */
-
-#slideshow #controls {
-  text-align: center;
-  transition: all 200ms ease-in-out;
-  top: 40%;
-  z-index: 0;
+.book-cover {
+    flex: 1;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.5); /* Heavy shadow for depth */
+    transition: transform 0.4s ease;
 }
 
-#slideshow #controls #next, #slideshow #controls #prev {
-  position: relative;
-  width: 50px;
-  height: 25px;
-  top: 40%;
-  cursor: pointer;
-  z-index: 2;
+.book-cover img {
+    width: 100%;
+    border: 1px solid #222;
 }
 
-#slideshow #controls #next {
-  float: right;
+.book-cover:hover {
+    transform: translateY(-10px) rotate(-2deg); /* Subtle physical lift */
 }
 
-#slideshow #controls #prev {
-  float: left;
+.book-info {
+    flex: 1;
 }
 
-#slideshow #controls #next div, #slideshow #controls #prev div {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0;
-  content: '';
-  display: inline-block;
-  left: 20px;
-  top: 0px;
-  transform: rotate(45deg);
-  vertical-align: top;
-  width: 1px;
-  height: 1px;
+.book-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--accent);
+    letter-spacing: 2px;
 }
 
-#slideshow #controls #prev div {
-  transform: rotate(-135deg);
+.book-description {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 30px;
 }
 
-#slideshow #controls #dots {
-  margin: auto;
-  display: inline-block;
-  padding: 0;
-  list-style-type: none;
-  width: auto;
+.buy-button {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
 }
 
-#slideshow #controls #dots li {
-  display: inline-block;
-  border: 1px solid #2D2D2D;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin: 5px 3px;
+.buy-button:hover {
+    background: var(--accent);
+    color: #000;
 }
 
-#slideshow #controls #dots .active {
-  background: #F39C12;
-}
-
-#slideshow #controls #dots li:hover,
-#slideshow #controls #next:hover,
-#slideshow #controls #prev:hover {
-  transform: scale(1.125);
-}
-
-#slideshow #controls #dots li:active,
-#slideshow #controls #next:active,
-#slideshow #controls #prev:active {
-  transform: scale(1);
-}
-
+/* Mobile responsive books */
+@media (max-width: 768px) {
+    .book-entry {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    .book-cover {
+        max-width: 300px;
+    }
 }

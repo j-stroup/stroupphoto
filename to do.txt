@@ -1,5 +1,0 @@
-Things to do:
-
-Fix low-res desktop sizing
-Remove Unneeded files and code
-Hide blog
