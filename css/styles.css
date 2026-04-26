@@ -19,16 +19,28 @@
 }
 
 html, body {
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
-  height: 100%;
-  overflow-x: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    height: 100%;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
 }
 
 main {
-    padding-top: 100px; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 2rem 80px 2rem; /* Clear header + side padding */
+    width: 90%;
 }
 
 /* Header Layout Adjustments */
@@ -82,19 +94,43 @@ main {
 
 /* Mobile Tweak */
 @media (max-width: 768px) {
+    /* Stack the brand and nav vertically */
     .header-container {
-        width: 95%;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
     }
+
+    #navBar {
+        height: auto; /* Allow the bar to grow for two rows */
+        padding: 10px 0;
+    }
+
     .navBar {
-        gap: 1rem; /* Tighter gap for mobile */
+        gap: 1.2rem;
+        justify-content: center;
+        width: 100%;
     }
-    .brand a {
-        font-size: 1.1rem;
-        letter-spacing: 3px;
+
+    .navBar a {
+        font-size: 0.75rem; /* Slightly smaller for a cleaner look */
+        letter-spacing: 1px;
     }
-    
-    .home-hero h2 {
-        font-size: 2rem;
+    /* 1. Tighten the content gap */
+    .content-wrapper {
+        padding-top: 80px !important; /* 60px for nav + 20px breathing room */
+    }
+
+    /* 2. Optional: Adjust the gallery title spacing */
+    .gallery-header h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+
+    /* 3. Ensure the main tag doesn't have its own padding fighting us */
+    main {
+        padding-top: 0 !important;
     }
 }
 
@@ -105,11 +141,12 @@ main {
     left: 0;
     width: 100%;
     height: 80px; 
-    background-color: #0a0a0a; /* solid for now to test */
+    background-color: rgba(10, 10, 10, 0.6); 
+    backdrop-filter: blur(15px);
     display: flex;
     align-items: center; /* Vertical center */
     z-index: 1000;
-    border-bottom: 1px solid #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navBar {
@@ -131,16 +168,6 @@ main {
 
 .navBar a:hover {
     color: var(--accent);
-}
-
-/* MAIN CONTENT CONTAINER */
-/* Replaces the rigid #body and #blog positioning */
-main, #body, #blog {
-  padding-top: calc(var(--nav-height) + 40px);
-  padding-bottom: 80px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 90%;
 }
 
 /* IMAGES & GALLERY */
@@ -196,64 +223,118 @@ h2 {
     }
 }
 
+/* --- THE HERO AREA --- */
 .home-hero-fullscreen {
     position: relative;
-    height: 100vh; /* Full screen height */
     width: 100vw;
-    margin-left: calc(-50vw + 50%); /* Breaks out of container to go edge-to-edge */
+    height: 100vh;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-top: -100px; /* Pulls it up under the transparent header */
+    justify-content: center; /* This handles the vertical centering */
 }
 
+/* The background layer */
 .hero-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-image: url('../images/digital/img-1019.jpg'); /* Ensure path is correct */
     background-size: cover;
     background-position: center;
-    filter: brightness(0.4) grayscale(20%); /* Ensures the white text pops */
+    background-attachment: fixed; /* This creates the 'locked' parallax look */
+    filter: brightness(0.3);
     z-index: 1;
 }
 
+/* The text/button content */
 .hero-content {
     position: relative;
     z-index: 2;
+    text-align: center;
+    /* This ensures the text block itself is centered */
     display: flex;
-    flex-direction: column; /* Stacks the H1, P, and A vertically */
-    align-items: center;    /* This is the magic line that centers all children */
-    justify-content: center;
-    text-align: center;     /* Centers the text lines within the elements */
-    padding: 20px;
-    max-width: 800px;       /* Keeps the paragraph from getting too wide */
-    margin: 0 auto;
+    flex-direction: column;
+    align-items: center; 
+    width: 90%;
 }
 
 .hero-content h1 {
-    font-size: clamp(2rem, 8vw, 5rem);
-    letter-spacing: 15px;
-    margin-bottom: 20px;
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    letter-spacing: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    line-height: 1.1;
 }
 
+.hero-content .description {
+    max-width: 650px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+/* --- THE CTA BUTTON --- */
 .cta-button {
-    margin-top: 30px;
     display: inline-block;
-    padding: 15px 40px;
-    border: 1px solid #fff;
-    color: #fff;
+    padding: 18px 45px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
     text-decoration: none;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
 }
 
 .cta-button:hover {
-    background: #fff;
-    color: #000;
+    background: rgba(255, 255, 255, 0.8);
+    color: #000000;
+    transform: scale(1.05);
+}
+/* --- MOBILE TWEAKS --- */
+@media (max-width: 768px) {
+    .home-hero-fullscreen {
+        height: 100svh; /* More accurate for mobile browsers */
+        min-height: -webkit-fill-available;
+        padding-top: 0; /* Ensures content isn't pushed down by the nav */
+    }
+.hero-content {
+        width: 100%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-content h1 {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .hero-content .description {
+        width: 85%; /* Give the text some breathing room from the edges */
+        text-align: center;
+    }
+    .home-hero h2 {
+        font-size: 2rem;
+    }
 }
 
 /* Custom CSS Arrows (Removing the old borders for cleaner lines) */
@@ -336,7 +417,6 @@ h2 {
     text-transform: uppercase;
 }
 
-/* Add this to your style.css */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -387,7 +467,7 @@ h2 {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
     backdrop-filter: blur(8px); /* Adds a heavy blur to the gallery behind the photo */
     z-index: 2000;
 }
@@ -412,6 +492,11 @@ h2 {
     object-fit: contain; /* Prevents cropping */
     box-shadow: 0 0 50px rgba(0, 0, 0, 1);
     border: 1px solid #222;
+    transform: scale(0.95);
+    transition: transform 0.4s ease;
+}
+.lightbox:target .lightbox-content img {
+    transform: scale(1);
 }
 
 /* Invisible area around the image to click and exit */
@@ -465,30 +550,131 @@ h2 {
     bottom: 10px;
   }
 }
+/* --- GALLERY NAVIGATION FOOTER --- */
+.gallery-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 80px 0 40px 0; /* Plenty of breathing room after the grid */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separation */
+    margin-top: 60px;
+}
 
+.gallery-nav-link {
+    display: inline-block;
+    padding: 15px 35px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Softer border than the main CTA */
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 400;
+    transition: var(--transition);
+    background: transparent;
+}
+
+.gallery-nav-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(243, 156, 18, 0.05); /* Very faint orange glow */
+    transform: translateY(-3px); /* Subtle physical lift */
+}
+
+/* Mobile Tweak */
+@media (max-width: 768px) {
+    .gallery-footer {
+        padding: 60px 0 20px 0;
+    }
+    .gallery-nav-link {
+        font-size: 0.7rem;
+        padding: 12px 25px;
+        letter-spacing: 2px;
+    }
+}
 /* MOBILE OPTIMIZATIONS (1000px and down) */
 @media (max-width: 768px) {
-  .navBar {
-    gap: 1rem;
-  }
-  
-  .navBar a {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-  }
 
   main, #body, #blog {
-    width: 95%;
+    width: 100%;
     padding-top: calc(var(--nav-height) + 20px);
   }
-
-  /* Stack the slideshow controls or dots for better thumb reach */
-  #controls {
-    top: auto;
-    bottom: 20px;
-    transform: none;
-  }
 }
+
+/* ABOUT STORY STYLING */
+.about-story {
+    max-width: 800px;
+    margin: 60px auto;
+}
+
+.story-block {
+    display: grid;
+    grid-template-columns: 200px 1fr; /* Label on left, text on right */
+    gap: 40px;
+    margin-bottom: 80px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Very subtle separator */
+    padding-top: 40px;
+}
+
+.story-label {
+    font-family: 'Courier New', Courier, monospace; /* Technical, dev vibe */
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--accent); /* Your signature orange */
+    padding-top: 5px;
+}
+
+.story-block p {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--text-main);
+    font-weight: 300;
+}
+.story-content-with-image {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.about-portrait {
+    flex-shrink: 0;
+    width: 170px; /* Small and non-commanding */
+    filter: grayscale(100%) contrast(1.1) brightness(0.8);
+    opacity: 0.7; /* Blends into the dark background */
+    transition: var(--transition);
+}
+
+.about-portrait:hover {
+    opacity: 1;
+    filter: grayscale(0%); /* Subtle reveal on hover */
+}
+
+.about-portrait img {
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 600px) {
+    .story-content-with-image {
+        flex-direction: column-reverse;
+    }
+    .about-portrait {
+        width: 100px;
+        margin-bottom: 20px;
+    }
+    .story-block {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 60px;
+    }
+    
+    .story-label {
+        font-size: 0.7rem;
+    }
+}
+
 /* BOOKS PAGE STYLING */
 .books-container {
     max-width: 900px;
@@ -501,32 +687,35 @@ h2 {
     letter-spacing: 5px;
     margin-bottom: 60px;
     color: var(--text-main);
+    font-size: 2.5rem;
+    font-weight: 300;
 }
 
 .book-entry {
     display: flex;
-    gap: 50px;
-    margin-bottom: 100px;
+    gap: 60px;
+    margin-bottom: 120px;
     align-items: center;
 }
 
 .book-cover {
     flex: 1;
-    box-shadow: 20px 20px 60px rgba(0,0,0,0.5); /* Heavy shadow for depth */
-    transition: transform 0.4s ease;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.7);
+    transition: var(--transition);
 }
 
 .book-cover img {
     width: 100%;
     border: 1px solid #222;
+    display: block;
 }
 
 .book-cover:hover {
-    transform: translateY(-10px) rotate(-2deg); /* Subtle physical lift */
+    transform: translateY(-10px) rotate(-1deg);
 }
 
 .book-info {
-    flex: 1;
+    flex: 1.2;
 }
 
 .book-info h3 {
@@ -534,39 +723,77 @@ h2 {
     margin-bottom: 20px;
     color: var(--accent);
     letter-spacing: 2px;
+    font-weight: 600;
 }
 
 .book-description {
     color: var(--text-muted);
     line-height: 1.8;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+    font-size: 1rem;
 }
 
+/* Unified Button Styling */
 .buy-button {
     display: inline-block;
-    padding: 12px 30px;
+    padding: 14px 35px;
     border: 1px solid var(--accent);
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 2px;
+    color: var(--accent) !important; /* Force the color away from blue */
+    text-decoration: none !important;
+    letter-spacing: 3px;
     text-transform: uppercase;
     font-size: 0.8rem;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: var(--transition);
 }
 
 .buy-button:hover {
     background: var(--accent);
-    color: #000;
+    color: #000 !important;
 }
 
-/* Mobile responsive books */
+/* --- 4. MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
-    .book-entry {
+    .about-grid, .book-entry {
+        grid-template-columns: 1fr;
         flex-direction: column;
         text-align: center;
         gap: 30px;
     }
+    
     .book-cover {
-        max-width: 300px;
+        max-width: 320px;
+        margin: 0 auto;
     }
+}
+/* --- CUSTOM SCROLLBAR --- */
+
+/* 1. The width of the entire scrollbar */
+::-webkit-scrollbar {
+    width: 10px; /* Keeps it thin and elegant */
+    z-index: 1001;
+}
+
+/* 2. The Track (the background path) */
+::-webkit-scrollbar-track {
+    background: var(--bg-color); 
+    z-index: 1001;
+}
+
+/* 3. The Thumb (the moving part) */
+::-webkit-scrollbar-thumb {
+    background: #222; /* Very subtle against the obsidian background */
+    border-radius: 12px;
+    border: 2px solid var(--bg-color); /* Creates "padding" around the thumb */
+}
+
+/* 4. The Thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent); /* Your signature orange reveals on interaction */
+}
+
+/* For Firefox (Firefox uses different properties) */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #222 var(--bg-color);
 }

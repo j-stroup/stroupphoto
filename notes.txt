@@ -1,0 +1,8 @@
+2 Column gallery for mobil:
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr 1fr; /* Two columns instead of one */
+        gap: 10px;
+    }
+}
