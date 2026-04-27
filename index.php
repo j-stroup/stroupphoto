@@ -5,19 +5,44 @@
 
 // 1. Setup & Security
 $allowed_pages = ['home', 'film', 'digital', 'about', 'books'];
-$page = (isset($_GET['page']) && in_array($_GET['page'], $allowed_pages)) ? $_GET['page'] : 'home';
 
+// Check if page exists in allowed list
+if (isset($_GET['page']) && in_array($_GET['page'], $allowed_pages)) {
+    $page = $_GET['page'];
+} elseif (!isset($_GET['page']) || $_GET['page'] === '') {
+    $page = 'home';
+} else {
+    // If a page was requested but isn't allowed, trigger the 404
+    header("HTTP/1.0 404 Not Found");
+    include('404.php');
+    exit; // Stop execution so it doesn't load index content below
+}
 // 2. Data Fetching (Only run for gallery pages)
 $photos = [];
 if ($page === 'film' || $page === 'digital') {
-    $directory = "images/" . $page . "/";
-    if (is_dir($directory)) {
-        $photos = glob($directory . "*.{jpg,jpeg,png,webp}", GLOB_BRACE);
-        // Sort newest to oldest
-        usort($photos, function($a, $b) { return filemtime($b) - filemtime($a); });
+    // Relative URL for the <img> tags
+    $web_path = "images/" . $page . "/";
+    
+    // Absolute SYSTEM path for glob() and is_dir()
+    $server_path = $_SERVER['DOCUMENT_ROOT'] . "/" . $web_path;
+
+    // Clean up double slashes just in case
+    $server_path = str_replace('//', '/', $server_path);
+
+    if (is_dir($server_path)) {
+        // Look in the physical server folder
+        $files = glob($server_path . "*.{jpg,jpeg,png,webp}", GLOB_BRACE);
+        
+        if ($files) {
+            foreach ($files as $file) {
+                // Convert the physical path back to a web URL for the browser
+                $photos[] = $web_path . basename($file);
+            }
+            // Sort newest to oldest
+            usort($photos, function($a, $b) { return filemtime($_SERVER['DOCUMENT_ROOT'] . "/" . $a) - filemtime($_SERVER['DOCUMENT_ROOT'] . "/" . $b); });
+        }
     }
 }
-
 include('header.php'); 
 ?>
 
@@ -37,7 +62,7 @@ include('header.php');
                         Visual evidence of the overlooked.
                         Forgotten. Ignored. Misunderstandings yield to imagination.
                     </p>
-                    <a href="index.php?page=digital" class="cta-button">Explore the Galleries</a>
+                    <a href="digital" class="cta-button">Explore the Galleries</a>
                 </div>
             </section>
 
@@ -89,7 +114,7 @@ include('header.php');
                                 <p class="book-description">
                                     When most of the industry left and Cleveland's population plummeted, what was left was a multitude of abandoned structures. I've been exploring these buildings for more than two decades now, and this book is a visual archive of those adventures. Some of the buildings in this book have been renovated, repurposed, or brought back to life; and some have been reduced to rubble in a landfill. My goal in publishing this book is to share those final glimpses into Cleveland's past.
                                 </p>
-                                <a href="https://link-to-purchase.com" class="buy-button" target="_blank">View Book</a>
+                                <a href="https://amzn.to/4uiFX1r" class="buy-button" target="_blank">View Book</a>
                             </div>
                         </article>
 
@@ -102,7 +127,7 @@ include('header.php');
                                 <p class="book-description">
                                     With Rustbelt cities like Cleveland and Youngstown sitting alongside miles upon miles of farms, woodlands, and urban sprawl; the variety of abandoned structures scattered throughout the northern half of the state is staggering. This book aims to tell the history of these places, as well as some of my own personal stories and feelings about these forgotten and neglected spaces.
                                 </p>
-                                <a href="https://link-to-purchase.com" class="buy-button" target="_blank">View Book</a>
+                                <a href="https://amzn.to/4vUTw8O" class="buy-button" target="_blank">View Book</a>
                             </div>
                         </article>
                     </section>
@@ -122,7 +147,11 @@ include('header.php');
                     <?php foreach ($photos as $photo): $hash = md5($photo); ?>
                         <div class="gallery-item">
                             <a href="#<?php echo $hash; ?>">
-                                <img src="<?php echo $photo; ?>" alt="Photography" loading="lazy">
+                                <div class="blur-load" style="background-image: url('<?php echo $photo; ?>');">
+                                    <img src="<?php echo $photo; ?>" 
+                                         alt="Photography" 
+                                         loading="lazy">
+                                </div>
                             </a>
                         </div>
 
@@ -136,8 +165,8 @@ include('header.php');
                     <?php endforeach; ?>
                 </div>
                     <div class="gallery-footer">
-               <?php if ($page === 'film'): ?><a href="index.php?page=digital" class="gallery-nav-link">Digital Photos</a>
-               <?php elseif ($page === 'digital'): ?><a href="index.php?page=film" class="gallery-nav-link">Film Photos</a><?php endif; ?>
+               <?php if ($page === 'film'): ?><a href="digital" class="gallery-nav-link">Digital Photos</a>
+               <?php elseif ($page === 'digital'): ?><a href="film" class="gallery-nav-link">Film Photos</a><?php endif; ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

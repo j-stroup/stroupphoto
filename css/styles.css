@@ -178,7 +178,34 @@ img {
   border-radius: 4px;
   transition: var(--transition);
 }
+/* 1. The Wrapper (The Placeholder) */
+.blur-load {
+    width: 100%;
+    height: 100%; 
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+.blur-load img {
+    width: 100%;
+    height: 100%;
+    /* This forces the image to fill the square without stretching */
+    object-fit: cover; 
+    object-position: center;
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The state when loaded */
+.blur-load.loaded {
+    filter: blur(0);
+}
+
+.blur-load.loaded img {
+    opacity: 1;
+}
 #body img, #blog img {
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   margin-bottom: 2rem;
@@ -232,7 +259,6 @@ h2 {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -310,7 +336,7 @@ h2 {
         min-height: -webkit-fill-available;
         padding-top: 0; /* Ensures content isn't pushed down by the nav */
     }
-.hero-content {
+    .hero-content {
         width: 100%;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -425,22 +451,28 @@ h2 {
 }
 
 .gallery-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* This creates the square 'box' */
     overflow: hidden;
-    background: #111;
-    aspect-ratio: 1 / 1; /* Keeps the grid uniform */
+    background-color: #111;
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-    filter: grayscale(20%) brightness(0.9); /* Moody baseline */
+    /* This is the magic line: it crops the image to fill the square 
+       without stretching it, much like an Instagram grid */
+    object-fit: cover; 
+    /* Centers the crop on the most important part of the photo */
+    object-position: center; 
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                filter 0.6s ease;
 }
 
 .gallery-item img:hover {
-    transform: scale(1.05);
-    filter: grayscale(0%) brightness(1.1);
+    transform: scale(1.08); /* Subtle zoom on hover */
+    filter: brightness(1.1);
 }
 
 /* --- LIGHTBOX STYLES --- */
@@ -766,6 +798,53 @@ h2 {
         margin: 0 auto;
     }
 }
+.error-container {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(circle at center, #111 0%, #0a0a0a 100%);
+}
+
+.error-content h1 {
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 900;
+    margin: 0;
+    color: var(--accent);
+    letter-spacing: -5px;
+    position: relative;
+}
+
+/* Subtle Glitch Effect */
+.glitch::before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.error-msg {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 4px;
+    color: #fff;
+    margin-top: -20px;
+}
+
+.error-details {
+    color: var(--text-muted);
+    margin: 20px 0 40px 0;
+    font-style: italic;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 50px, 0); }
+    20% { clip: rect(80px, 9999px, 100px, 0); }
+    100% { clip: rect(20px, 9999px, 60px, 0); }
+}
+
 /* --- CUSTOM SCROLLBAR --- */
 
 /* 1. The width of the entire scrollbar */
