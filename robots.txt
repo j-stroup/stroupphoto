@@ -1,3 +1,31 @@
+# Jeffrey Stroup Photography - Robots Configuration
 User-agent: *
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# 1. Protect your raw assets and core logic
+Disallow: /images/digital/
+Disallow: /images/film/
+Disallow: /header.php
+Disallow: /footer.php
+Disallow: /404.php
+
+# 2. Block common honeypot targets 
+Disallow: /.git/
+Disallow: /admin/
+Disallow: /dev/
+Disallow: /config.php.old
+Disallow: /.env
+
+# 3. Allow indexing of the narrative pages
 Allow: /
-Disallow: /blog
+Allow: /about
+Allow: /books
+Allow: /film
+Allow: /digital
+
+# Sitemap: https://yourdomain.com/sitemap.xml
