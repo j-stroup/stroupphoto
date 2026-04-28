@@ -17,8 +17,8 @@
 
         <nav>
             <ul class="navBar">
-                <li><a href="film">Film</a></li>
                 <li><a href="digital">Digital</a></li>
+                <li><a href="film">Film</a></li>
                 <li><a href="about">About</a></li>
                 <li><a href="books">Books</a></li> </ul>
             </ul>
