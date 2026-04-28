@@ -33,13 +33,12 @@ if ($page === 'film' || $page === 'digital') {
         // Look in the physical server folder
         $files = glob($server_path . "*.{jpg,jpeg,png,webp}", GLOB_BRACE);
         
-        if ($files) {
+    if ($files) {
             foreach ($files as $file) {
-                // Convert the physical path back to a web URL for the browser
                 $photos[] = $web_path . basename($file);
             }
-            // Sort newest to oldest
-            usort($photos, function($a, $b) { return filemtime($_SERVER['DOCUMENT_ROOT'] . "/" . $a) - filemtime($_SERVER['DOCUMENT_ROOT'] . "/" . $b); });
+            // NEW RANDOM SORT:
+            shuffle($photos); 
         }
     }
 }
