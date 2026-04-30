@@ -1,0 +1,9 @@
+# Inside /images/.htaccess
+# Disable PHP execution in the images directory
+php_flag engine off
+
+# Only allow image types to be served
+<FilesMatch "\.(?i:php|php3|php4|php5|phtml|pl|py|jsp|asp|sh|cgi)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

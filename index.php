@@ -18,8 +18,14 @@ if (isset($_GET['page']) && in_array($_GET['page'], $allowed_pages)) {
     exit; // Stop execution so it doesn't load index content below
 }
 // 2. Data Fetching (Only run for gallery pages)
+// Define your medium-specific insights
+$gallery_insights = [
+    'film' => 'Shot using 35mm, 120, and various instant films. What I love about analog photos is the gamble, the imperfections, the unpredictability. Expired films, light leaks, cheap old cameras.',
+    'digital' => 'I have a love hate relationship with digital photography. The editing process allows for so much more creativity and control. I also hate the editing process.'
+];
 $photos = [];
 if ($page === 'film' || $page === 'digital') {
+    $subtext = isset($gallery_insights[$page]) ? $gallery_insights[$page] : '';
     // Relative URL for the <img> tags
     $web_path = "images/" . $page . "/";
     
@@ -42,6 +48,7 @@ if ($page === 'film' || $page === 'digital') {
         }
     }
 }
+
 include('header.php'); 
 ?>
 
@@ -53,13 +60,7 @@ include('header.php');
                 <div class="hero-content">
                     <h1>Jeffrey Stroup</h1>
                     <p class="description">
-                        Fractured light. An obfuscated reality.
-                        A world bleeding into entropy.
-                        We only exist when we're unseen.
-                        Dust. Rust. Tunnels. Silence.
-                        The byproduct of a journey that doesn’t end.
-                        Visual evidence of the overlooked.
-                        Forgotten. Ignored. Misunderstandings yield to imagination.
+                        Fractured light. An obfuscated reality. Visual ambiguity for interpretive reconstruction.
                     </p>
                     <a href="digital" class="cta-button">Explore the Galleries</a>
                 </div>
@@ -88,12 +89,12 @@ include('header.php');
 
                         <div class="story-block">
                             <span class="story-label">03 / The Evolution</span>
-                            <p>Over time, my focus has shifted from the act of trespassing to the act of seeing. While I still venture where others won't, I have increasingly moved toward documenting the city through a more abstract lens. I am drawn to the textures, geometries, and forgotten details that exist in plain sight but remain invisible to the casual observer.</p>
+                            <p>Over time, my focus has shifted from the act of documenting my adventures to the act of seeing. While I still venture where others won't, I have increasingly moved toward capturing my surroundings through a more abstract lens. I am drawn to the textures, geometries, and forgotten details that exist in plain sight but remain invisible to the casual observer.</p>
                         </div>
 
                         <div class="story-block">
                             <span class="story-label">04 / The Record</span>
-                            <p>Whether I am deep underground or capturing the grit of a modern skyline, my goal remains the same: to create a permanent record of the world’s forgotten corners. This portfolio is a collection of twenty years of exploration—a visual byproduct of a life spent looking for the reality hidden behind the static of everyday life.</p>
+                            <p>Whether I am deep underground or capturing the harsh lines of a modern skyline, my goal remains the same: to create a permanent record of the world as I see it. This portfolio is a collection of twenty years of exploration—a visual byproduct of a life spent looking for the reality hidden behind the static of everyday life.</p>
                         </div>
                     </div>
                 </section>
@@ -135,8 +136,14 @@ include('header.php');
         <?php else: ?>
             <div class="content-wrapper">
             <section class="gallery-header">
-                <h2><?php if ($page === 'film'): echo '35mm, 120, and various instant films'; ?></h2>
-                <h2><?php elseif ($page === 'digital'): echo 'Digital Photos'; ?></h2><?php endif; ?>
+            <section class="gallery-intro">
+                <h1 data-text="<?php echo ucfirst($page); ?> Photography">
+                    <?php echo ucfirst($page); ?> Photography
+                </h1>
+                <?php if ($subtext): ?>
+                    <p class="medium-insight"><?php echo $subtext; ?></p>
+                <?php endif; ?>
+            </section>
             </section>
 
             <div class="grid">
@@ -144,7 +151,7 @@ include('header.php');
                     <p class="empty-msg">No images found in the <?php echo $page; ?> directory.</p>
                 <?php else: ?>
                     <?php foreach ($photos as $photo): $hash = md5($photo); ?>
-                        <div class="gallery-item">
+                        <figure class="gallery-item">
                             <a href="#<?php echo $hash; ?>">
                                 <div class="blur-load" style="background-image: url('<?php echo $photo; ?>');">
                                     <img src="<?php echo $photo; ?>" 
@@ -152,7 +159,7 @@ include('header.php');
                                          loading="lazy">
                                 </div>
                             </a>
-                        </div>
+                        </figure>
 
                         <div id="<?php echo $hash; ?>" class="lightbox">
                             <a href="#!" class="lightbox-close" aria-label="Close"></a>

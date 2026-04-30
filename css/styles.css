@@ -485,7 +485,44 @@ h2 {
     color: var(--text-muted);
     letter-spacing: 1px;
 }
+/* --- GALLERY INTRO & INSIGHTS (Desktop) --- */
+.gallery-intro {
+    max-width: 1200px; /* Aligns with your grid's max width */
+    margin: 0 auto;
+    padding: 30px 0 30px 0;
+}
 
+.gallery-intro h1 {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+}
+
+.medium-insight {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.6); /* Dimmed text for mood */
+    max-width: 600px; /* Prevents long, unreadable lines */
+    margin: 0;
+    padding-left: 25px;
+    border-left: 3px solid var(--accent); /* Your signature orange */
+    position: relative;
+    
+    /* Subtle glow to mimic a terminal screen */
+    text-shadow: 0 0 10px rgba(243, 156, 18, 0.1); 
+}
+
+/* Optional: Fade-in animation for the insight */
+.medium-insight {
+    animation: fadeInIntro 1.2s ease-out forwards;
+}
+
+@keyframes fadeInIntro {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
 /* The background overlay */
 .lightbox {
     position: fixed;
@@ -558,30 +595,29 @@ h2 {
 }
 
 @media (max-width: 600px) {
+    .gallery-intro {
+        padding: 60px 15px 35px 15px; /* Increased top padding to clear the navbar */
+        text-align: left;
+    }
+    .medium-insight {
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-muted); /* Assuming you have a #888 or similar */
+        max-width: 450px;
+        margin-top: 15px;
+        border-left: 2px solid var(--accent); /* A subtle vertical line for "vibe" */
+        padding-left: 15px;
+            opacity: 0.8;
+    }
+
+    /* Tighten the gap between title and grid */
     .grid {
         grid-template-columns: 1fr; /* Single column on phones */
-        gap: 10px;
+        gap: 5px;
     }
 }
 
-/* --- MOBILE OVERRIDES --- */
-@media (max-width: 700px) {
-  #slideshow {
-    aspect-ratio: 1 / 1; /* Squares look better on phone screens */
-    margin: 1rem 0;
-  }
-
-  #slideshow #controls #next, 
-  #slideshow #controls #prev {
-    width: 45px;
-    height: 45px;
-    background: rgba(10, 10, 10, 0.6); /* Higher contrast for outdoor viewing */
-  }
-
-  #dots {
-    bottom: 10px;
-  }
-}
 /* --- GALLERY NAVIGATION FOOTER --- */
 .gallery-footer {
     width: 100%;
@@ -622,6 +658,32 @@ h2 {
         font-size: 0.7rem;
         padding: 12px 25px;
         letter-spacing: 2px;
+    }
+    .gallery-intro {
+        padding: 50px 15px 35px 15px; /* Increased top padding to clear the navbar */
+        text-align: left;
+    }
+    .gallery-intro h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+    }
+    .medium-insight {
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-muted); /* Assuming you have a #888 or similar */
+        max-width: 450px;
+        margin-top: 15px;
+        border-left: 2px solid var(--accent); /* A subtle vertical line for "vibe" */
+        padding-left: 15px;
+            opacity: 0.8;
+    }
+    /* Tighten the gap between title and grid */
+    .grid {
+        grid-template-columns: 1fr; /* Single column on phones */
+        gap: 10px;
     }
 }
 /* MOBILE OPTIMIZATIONS (1000px and down) */

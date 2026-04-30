@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Photography Portfolio</title>
+    <title>Jeffrey Stroup - Photography</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jeffrey Stroup",
+  "url": "https://stroupphoto.com",
+  "jobTitle": "Photographer & Artist",
+  "sameAs": [
+    "https://instagram.com/jeff_sorta",
+    "https://www.youtube.com/climbingthefence"
+  ],
+  "knowsAbout": ["Urban Exploration", "Film Photography", "Cleveland History"]
+}
+</script>
 <body>
 <header id="navBar">
     <div class="header-container">
